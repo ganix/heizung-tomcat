@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>heizung-tomcat</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <security-constraint>
+    <display-name>A Configuration Security Constraint</display-name>
+    <web-resource-collection>
+      <web-resource-name>Protected Area</web-resource-name>
+      <url-pattern>*.jsp</url-pattern>
+      <url-pattern>/temperaturechart</url-pattern>
+      <url-pattern>/jsonpoller</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>heizung</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>A Server Configuration Form-Based Authentication Area</realm-name>
+    <form-login-config>
+      <form-login-page>/login.jsp</form-login-page>
+      <form-error-page>/error.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  <security-role>
+    <description>The role that is required to log in to the Application</description>
+    <role-name>heizung</role-name>
+  </security-role>
+  <servlet>
+    <description>ja</description>
+    <servlet-name>StartHeizung</servlet-name>
+    <servlet-class>de.ganix.heizung.StartHeizung</servlet-class>
+    <load-on-startup>5</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jsonpoller</servlet-name>
+    <url-pattern>/jsonpoller</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>temperaturechart</servlet-name>
+    <url-pattern>/temperaturechart</url-pattern>
+  </servlet-mapping>
+</web-app>
